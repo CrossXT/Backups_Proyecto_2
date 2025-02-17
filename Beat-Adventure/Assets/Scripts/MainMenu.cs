@@ -11,7 +11,9 @@ public class NewBehaviourScript : MonoBehaviour
 
     public Button Start;
     public Button Settings;
+    public Button Credits;
     public Button Exit;
+
     // Start is called before the first frame update
 
 
@@ -19,6 +21,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Start.onClick.AddListener(OnButtonStartClick);
         Settings.onClick.AddListener(OnButtonSettingsClick);
+        Credits.onClick.AddListener(OnButtonSettingsClick);
         Exit.onClick.AddListener(OnButtonExitClick);
 
     }
@@ -27,6 +30,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Start.onClick.RemoveListener(OnButtonStartClick);
         Settings.onClick.RemoveListener(OnButtonStartClick);
+        Credits.onClick.RemoveListener(OnButtonStartClick);
         Exit.onClick.RemoveListener(OnButtonStartClick);
     }
 
@@ -37,11 +41,15 @@ public class NewBehaviourScript : MonoBehaviour
     }
     void OnButtonStartClick()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("LevelSelection");
     }
     void OnButtonSettingsClick()
     {
         SceneManager.LoadScene("Settings");
+    }
+    void OnButtonCreditsClick()
+    {
+        SceneManager.LoadScene("Credits");
     }
     void OnButtonExitClick()
     {
