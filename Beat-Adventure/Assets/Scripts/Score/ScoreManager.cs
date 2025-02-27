@@ -1,20 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI;  // Necesario para interactuar con la UI de Unity
+using TMPro; // Importar TextMeshPro
 
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreText;  // Referencia al componente Text para mostrar la puntuación
+    public TMP_Text scoreText; // Referencia al TextMeshPro
     private int score = 0;  // Puntuación actual
 
-    void Update()
+    void Start()
     {
-        // Actualiza el texto de la puntuación en pantalla
-        scoreText.text = "Puntuación: " + score;
+        UpdateScoreUI();
     }
 
-    // Método para añadir puntos (lo puedes llamar desde el script de PlayerInput)
+    // Método para añadir puntos
     public void AddScore(int points)
     {
         score += points;
+        UpdateScoreUI();
+    }
+
+    // Método para actualizar el texto en pantalla
+    private void UpdateScoreUI()
+    {
+        scoreText.text = score.ToString();
     }
 }

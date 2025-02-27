@@ -6,46 +6,55 @@ public class Note : MonoBehaviour
     public bool isHit = false;
     private float hitPositionY = -4f;
 
-    private GameInputActions inputActions; // Cambiamos PlayerInput por GameInputActions
-    public string assignedKey;  // Tecla asignada a esta nota (Ej: "D", "F", "J", "K")
+    private GameInputActions inputActions;
+    private ScoreManager scoreManager;
+    public string assignedKey;
+    public int scoreValue = 100;
+
+    private bool isInsideTarget = false;
 
     void Awake()
     {
-        // Inicializamos correctamente el inputActions
         inputActions = new GameInputActions();
-        inputActions.Enable(); // Activamos las acciones
+        inputActions.Enable();
+    }
+
+    void Start()
+    {
+        scoreManager = Object.FindFirstObjectByType<ScoreManager>();
+        if (scoreManager == null)
+        {
+            Debug.LogError("ScoreManager no encontrado en la escena.");
+        }
     }
 
     void Update()
     {
-        // Si la nota pasa la posición de fallo y no fue golpeada, se destruye
         if (transform.position.y < hitPositionY && !isHit)
         {
+            Debug.Log("Nota fallada: " + assignedKey);
             Destroy(gameObject);
         }
 
-        // Si el jugador presiona la tecla correcta, golpea la nota
-        if (DetectaInput())
+        if (isInsideTarget && TeclaPresionada())
         {
             Hit();
         }
     }
 
-    bool DetectaInput()
+    bool TeclaPresionada()
     {
-        // Verificamos si la acción "Hit" fue activada y la tecla está presionada
-        switch (assignedKey)
+        switch (assignedKey.ToLower()) // Convierte la tecla asignada a minúsculas
         {
-            case "D":
-                return inputActions.Gameplay.Hit.triggered && Keyboard.current.dKey.isPressed;
-            case "F":
-                return inputActions.Gameplay.Hit.triggered && Keyboard.current.fKey.isPressed;
-            case "J":
-                return inputActions.Gameplay.Hit.triggered && Keyboard.current.jKey.isPressed;
-            case "K":
-                return inputActions.Gameplay.Hit.triggered && Keyboard.current.kKey.isPressed;
-            default:
-                return false;
+            case "d": return Keyboard.current.dKey.wasPressedThisFrame;
+            case "f": return Keyboard.current.fKey.wasPressedThisFrame;
+            case "j": return Keyboard.current.jKey.wasPressedThisFrame;
+            case "k": return Keyboard.current.kKey.wasPressedThisFrame;
+            case "space": return Keyboard.current.spaceKey.wasPressedThisFrame;
+            case "left": return Keyboard.current.leftArrowKey.wasPressedThisFrame;
+            case "right": return Keyboard.current.rightArrowKey.wasPressedThisFrame;
+            case "enter": return Keyboard.current.enterKey.wasPressedThisFrame;
+            default: return false;
         }
     }
 
@@ -55,12 +64,34 @@ public class Note : MonoBehaviour
         {
             isHit = true;
             Debug.Log("Nota acertada: " + assignedKey);
+
+            if (scoreManager != null)
+            {
+                scoreManager.AddScore(scoreValue);
+            }
+
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Target"))
+        {
+            isInsideTarget = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Target"))
+        {
+            isInsideTarget = false;
         }
     }
 
     void OnDestroy()
     {
-        inputActions.Disable(); // Deshabilitamos las acciones cuando la nota es destruida
+        inputActions.Disable();
     }
 }
