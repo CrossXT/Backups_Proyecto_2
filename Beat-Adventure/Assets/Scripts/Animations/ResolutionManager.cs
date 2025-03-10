@@ -24,14 +24,13 @@ public class ResolutionSettings : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = $"{resolutions[i].width} x {resolutions[i].height} @ {resolutions[i].refreshRateRatio}Hz";
+            string option = $"{resolutions[i].width} x {resolutions[i].height} @ {resolutions[i].refreshRate}Hz";
             options.Add(option);
 
             // Detectar la resolución actual
             if (resolutions[i].width == Screen.currentResolution.width &&
                 resolutions[i].height == Screen.currentResolution.height &&
-                resolutions[i].refreshRateRatio.numerator == Screen.currentResolution.refreshRateRatio.numerator && resolutions[i].refreshRateRatio.denominator == Screen.currentResolution.refreshRateRatio.denominator)
-                
+                resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
             {
                 currentResolutionIndex = i;
             }
@@ -52,7 +51,7 @@ public class ResolutionSettings : MonoBehaviour
     public void SetResolution(int index)
     {
         Resolution selectedResolution = resolutions[index];
-        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen);
+        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen, selectedResolution.refreshRate);
         PlayerPrefs.SetInt("ResolutionIndex", index); // Guardar la selección
     }
 
