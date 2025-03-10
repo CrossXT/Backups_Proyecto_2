@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 770297918}
   - component: {fileID: 770297917}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PausePannel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 777225019}
   - component: {fileID: 777225018}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PauseText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PlaceHolder
+  m_text: 'PlaceHolder(Pausa
 
 '
   m_isRightToLeft: 0
@@ -1569,7 +1569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1658184822
 MonoBehaviour:
   m_ObjectHideFlags: 0
