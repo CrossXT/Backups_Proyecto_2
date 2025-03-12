@@ -1,68 +1,67 @@
 using UnityEngine;
-using TMPro; // Importar el namespace de TextMeshPro
+using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ResolutionSettings : MonoBehaviour
 {
-    public TMP_Dropdown resolutionDropdown; // Usar TMP_Dropdown en lugar de Dropdown
+    public TMP_Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
 
-    private Resolution[] resolutions; // Lista de resoluciones disponibles
-    private int currentResolutionIndex;
+    private Resolution[] resolutions;
+    private int currentResolutionIndex = 0;
 
     void Start()
     {
-        // Obtener todas las resoluciones soportadas
         resolutions = Screen.resolutions;
+        List<string> options = new List<string>();
 
-        // Limpiar opciones previas del Dropdown
         resolutionDropdown.ClearOptions();
-
-        // Crear una lista de resoluciones como cadenas
-        var options = new System.Collections.Generic.List<string>();
-        currentResolutionIndex = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = $"{resolutions[i].width} x {resolutions[i].height} @ {resolutions[i].refreshRate}Hz";
+            string option = $"{resolutions[i].width} x {resolutions[i].height} @ {resolutions[i].refreshRateRatio.value}Hz";
             options.Add(option);
 
-            // Detectar la resolución actual
             if (resolutions[i].width == Screen.currentResolution.width &&
                 resolutions[i].height == Screen.currentResolution.height &&
-                resolutions[i].refreshRate == Screen.currentResolution.refreshRate)
+                resolutions[i].refreshRateRatio.value == Screen.currentResolution.refreshRateRatio.value)
             {
                 currentResolutionIndex = i;
             }
         }
 
-        // Agregar opciones al TMP_Dropdown
         resolutionDropdown.AddOptions(options);
 
-        // Asignar eventos
+        LoadSettings();
+
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
-
-        // Cargar configuraciones guardadas
-        LoadSettings();
     }
 
-    // Cambiar resolución al seleccionar una opción del Dropdown
     public void SetResolution(int index)
     {
+        if (index < 0 || index >= resolutions.Length) return;
+
         Resolution selectedResolution = resolutions[index];
-        Screen.SetResolution(selectedResolution.width, selectedResolution.height, Screen.fullScreen, selectedResolution.refreshRate);
-        PlayerPrefs.SetInt("ResolutionIndex", index); // Guardar la selección
+
+        FullScreenMode fullscreenMode = Screen.fullScreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+
+
+        Screen.SetResolution(selectedResolution.width, selectedResolution.height, fullscreenMode, selectedResolution.refreshRateRatio);
+
+        PlayerPrefs.SetInt("ResolutionIndex", index);
+        PlayerPrefs.Save();
     }
 
-    // Cambiar el estado de pantalla completa
     public void SetFullscreen(bool isFullscreen)
     {
-        Screen.fullScreen = isFullscreen;
-        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0); // Guardar el estado
+        Screen.fullScreenMode = isFullscreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
-    // Cargar configuraciones guardadas
     void LoadSettings()
     {
         if (PlayerPrefs.HasKey("ResolutionIndex"))
@@ -81,11 +80,10 @@ public class ResolutionSettings : MonoBehaviour
         {
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
             fullscreenToggle.isOn = isFullscreen;
-            Screen.fullScreen = isFullscreen;
+            Screen.fullScreenMode = isFullscreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
         }
         else
         {
-            // Si no hay configuraciones guardadas, usar los valores iniciales
             fullscreenToggle.isOn = Screen.fullScreen;
         }
     }
