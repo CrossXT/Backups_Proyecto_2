@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI; // Necesario para manejar la UI
+using UnityEngine.InputSystem;
 
 public class Note : MonoBehaviour
 {
