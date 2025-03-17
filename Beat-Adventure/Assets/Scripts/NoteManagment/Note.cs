@@ -21,7 +21,7 @@ public class Note : MonoBehaviour
     private const float requiredDuration = 1.5f; // Duración que debe mantenerse la tecla
 
     // Referencia a la barra de progreso (UI)
-    public Slider progressBar; // Enlazar el Slider desde el Inspector
+
 
     void Start()
     {
@@ -35,12 +35,6 @@ public class Note : MonoBehaviour
         if (PlayerPrefs.HasKey(assignedKey))
         {
             assignedKey = PlayerPrefs.GetString(assignedKey);
-        }
-
-        if (progressBar != null)
-        {
-            progressBar.value = 0;  // Inicializa la barra de progreso
-            progressBar.gameObject.SetActive(false);  // Asegúrate de que la barra está oculta al principio
         }
     }
 
@@ -64,16 +58,11 @@ public class Note : MonoBehaviour
                         isKeyPressed = true;
                         keyPressDuration = 0f;
 
-                        // Hacer visible la barra de progreso
-                        if (progressBar != null)
-                        {
-                            progressBar.gameObject.SetActive(true);
-                        }
                     }
 
                     // Si la tecla sigue presionada, acumulamos el tiempo
                     keyPressDuration += Time.deltaTime;
-                    progressBar.value = keyPressDuration / requiredDuration; // Llenar la barra proporcionalmente
+
 
                     // Si el tiempo acumulado es suficiente, consideramos que la nota fue mantenida correctamente
                     if (keyPressDuration >= requiredDuration)
@@ -95,11 +84,6 @@ public class Note : MonoBehaviour
                         isKeyPressed = false;
                         keyPressDuration = 0f;
 
-                        // Ocultar la barra de progreso
-                        if (progressBar != null)
-                        {
-                            progressBar.gameObject.SetActive(false);
-                        }
                     }
                 }
             }
@@ -148,11 +132,7 @@ public class Note : MonoBehaviour
                 scoreManager.AddScore(scoreValue);
             }
 
-            // Ocultar la barra de progreso al completar el "hit"
-            if (progressBar != null)
-            {
-                progressBar.gameObject.SetActive(false);
-            }
+            
 
             Destroy(gameObject); // Destruir la nota
         }
