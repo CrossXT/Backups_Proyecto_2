@@ -1234,6 +1234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notePrefabs:
   - {fileID: 737062717161196638, guid: b6512bf937ed47548a9527546ccc66f4, type: 3}
+  - {fileID: 4197698256091416985, guid: 5807443fc3888554d81ea7afa416646d, type: 3}
   spawnPositions:
   - {fileID: 98106260}
   - {fileID: 5688893}
@@ -1244,7 +1245,7 @@ MonoBehaviour:
   - 7
   - 4
   - 3
-  spawnRate: 2
+  spawnRate: 3
 --- !u!4 &843813619
 Transform:
   m_ObjectHideFlags: 0
