@@ -1,25 +1,25 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem; // Necesario para la entrada del teclado
 
 public class HoldNote : MonoBehaviour
 {
-    public float duration = 1f; // Duración en segundos
-    public float speed = 5f;    // Velocidad de caída
+    public float duration = 1f; // DuraciÃ³n en segundos
+    public float speed = 5f;    // Velocidad de caÃ­da
     public string assignedKey;  // Tecla asignada a esta nota
 
     private Transform body;
     private Transform tail;
 
-    private bool isKeyPressed = false; // Si la tecla está presionada
-    private float keyPressDuration = 0f; // El tiempo durante el cual la tecla está presionada
-    private const float requiredDuration = 1.5f; // Duración que debe mantenerse la tecla
+    private bool isKeyPressed = false; // Si la tecla estÃ¡ presionada
+    private float keyPressDuration = 0f; // El tiempo durante el cual la tecla estÃ¡ presionada
+    private const float requiredDuration = 1.5f; // DuraciÃ³n que debe mantenerse la tecla
 
     void Start()
     {
         body = transform.Find("Body"); // Encuentra el cuerpo
         tail = transform.Find("Tail"); // Encuentra la cola
 
-        AdjustSize(); // Ajusta el tamaño al inicio
+        AdjustSize(); // Ajusta el tamaÃ±o al inicio
 
         // Cargar la tecla asignada desde PlayerPrefs si existe
         if (PlayerPrefs.HasKey(assignedKey))
@@ -33,18 +33,18 @@ public class HoldNote : MonoBehaviour
         // Movimiento hacia abajo
         transform.position += Vector3.down * speed * Time.deltaTime;
 
-        // Verifica si la tecla asignada está siendo presionada
+        // Verifica si la tecla asignada estÃ¡ siendo presionada
         if (TeclaPresionada())
         {
             if (!isKeyPressed)
             {
                 isKeyPressed = true;
-                keyPressDuration = 0f; // Resetear el tiempo de presión de tecla
+                keyPressDuration = 0f; // Resetear el tiempo de presiÃ³n de tecla
             }
 
             keyPressDuration += Time.deltaTime;
 
-            // Si la duración de la tecla mantenida alcanza el tiempo necesario, la nota se considera acertada
+            // Si la duraciÃ³n de la tecla mantenida alcanza el tiempo necesario, la nota se considera acertada
             if (keyPressDuration >= requiredDuration)
             {
                 Hit();
@@ -54,7 +54,7 @@ public class HoldNote : MonoBehaviour
         {
             if (isKeyPressed)
             {
-                // Si la tecla se soltó antes de tiempo
+                // Si la tecla se soltÃ³ antes de tiempo
                 if (keyPressDuration < requiredDuration)
                 {
                     Debug.Log("Tecla soltada antes de tiempo.");
@@ -71,7 +71,7 @@ public class HoldNote : MonoBehaviour
         if (string.IsNullOrEmpty(assignedKey)) return false;
 
         var keyboard = Keyboard.current;
-        if (keyboard == null) return false; // Asegura que el teclado esté activo
+        if (keyboard == null) return false; // Asegura que el teclado estÃ© activo
 
         switch (assignedKey.ToLower())
         {
@@ -83,27 +83,34 @@ public class HoldNote : MonoBehaviour
             case "left": return keyboard.leftArrowKey.isPressed;
             case "right": return keyboard.rightArrowKey.isPressed;
             case "enter": return keyboard.enterKey.isPressed;
-            default: return false; // Si la tecla no está en la lista, no hace nada
+            default: return false; // Si la tecla no estÃ¡ en la lista, no hace nada
         }
     }
 
     public void Hit()
     {
-        // Aquí puedes agregar lo que sucede cuando la nota se mantiene correctamente
+        // AquÃ­ puedes agregar lo que sucede cuando la nota se mantiene correctamente
         Debug.Log("Nota mantenida correctamente: " + assignedKey);
-        Destroy(gameObject); // Destruir la nota después de que se haya mantenido
+        Destroy(gameObject); // Destruir la nota despuÃ©s de que se haya mantenido
+    }
+
+    // âœ… MÃ‰TODO QUE FALTABA: SetNoteLength()
+    public void SetNoteLength(float newDuration)
+    {
+        duration = newDuration;
+        AdjustSize(); // Ajustar tamaÃ±o cuando cambia la duraciÃ³n
     }
 
     private void AdjustSize()
     {
         if (body != null)
         {
-            float newBodyHeight = duration * speed; // Calculamos la altura según la duración
+            float newBodyHeight = duration * speed; // Calculamos la altura segÃºn la duraciÃ³n
 
             // Aplicamos la escala en Y sin afectar X ni Z
             body.localScale = new Vector3(1, newBodyHeight, 1);
 
-            // Ajustamos la posición de la cola para que quede bien alineada
+            // Ajustamos la posiciÃ³n de la cola para que quede bien alineada
             if (tail != null)
             {
                 tail.localPosition = new Vector3(0, -newBodyHeight / 2f, 0);
@@ -118,5 +125,4 @@ public class HoldNote : MonoBehaviour
             }
         }
     }
-
 }

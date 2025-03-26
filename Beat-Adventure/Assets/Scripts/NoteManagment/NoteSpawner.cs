@@ -1,36 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using Newtonsoft.Json; // Asegúrate de tener Newtonsoft.Json en tu proyecto
 
 public class NoteSpawner : MonoBehaviour
 {
-    public GameObject[] notePrefabs; // Prefabs de notas (una por cada línea)
+    public GameObject normalNotePrefab;
+    public GameObject holdNotePrefab;
     public Transform[] spawnPositions; // Posiciones donde aparecerán las notas
-    public float[] noteSpeeds; // Velocidades de cada línea
-    public float spawnRate = 1f; // Tiempo entre cada aparición de nota
+    public AudioSource musicSource;
+
+    private List<NoteData> noteDataList;
+    private float startTime;
 
     void Start()
     {
+        LoadNotesFromJson("Assets/Resources/notes.json"); // Ruta del archivo JSON
         StartCoroutine(SpawnNotes());
+    }
+
+    void LoadNotesFromJson(string path)
+    {
+        string jsonText = File.ReadAllText(path);
+        noteDataList = JsonConvert.DeserializeObject<List<NoteData>>(jsonText);
     }
 
     IEnumerator SpawnNotes()
     {
+        startTime = Time.time;
         while (true)
         {
-            yield return new WaitForSeconds(spawnRate);
+            float elapsedTime = Time.time - startTime;
 
-            for (int i = 0; i < notePrefabs.Length; i++) // Genera una nota en cada línea
+            for (int i = 0; i < noteDataList.Count; i++)
             {
-                GameObject newNote = Instantiate(notePrefabs[i], spawnPositions[i].position, Quaternion.identity);
+                NoteData note = noteDataList[i];
 
-                // Ajusta la velocidad de la nota con el script NoteMovement
-                NoteMovement noteScript = newNote.GetComponent<NoteMovement>();
-                if (noteScript != null)
+                if (note.time <= elapsedTime)
                 {
-                    noteScript.speed = noteSpeeds[i]; // Asigna la velocidad de la línea
+                    SpawnNote(note);
+                    noteDataList.RemoveAt(i);
+                    i--;
                 }
             }
+            yield return null;
         }
     }
+
+    void SpawnNote(NoteData note)
+    {
+        Transform spawnPos = GetSpawnPosition(note.key);
+        if (spawnPos == null) return;
+
+        if (note.type == "normal")
+        {
+            Instantiate(normalNotePrefab, spawnPos.position, Quaternion.identity);
+        }
+        else if (note.type == "hold")
+        {
+            GameObject holdNote = Instantiate(holdNotePrefab, spawnPos.position, Quaternion.identity);
+            holdNote.GetComponent<HoldNote>().SetNoteLength(note.duration);
+        }
+    }
+
+    Transform GetSpawnPosition(string key)
+    {
+        switch (key)
+        {
+            case "d": return spawnPositions[0];
+            case "f": return spawnPositions[1];
+            case "j": return spawnPositions[2];
+            case "k": return spawnPositions[3];
+            default: return null;
+        }
+    }
+}
+
+[System.Serializable]
+public class NoteData
+{
+    public float time;
+    public string key;
+    public string type;
+    public float duration;
 }
