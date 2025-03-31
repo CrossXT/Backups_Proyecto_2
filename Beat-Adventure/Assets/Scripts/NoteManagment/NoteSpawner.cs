@@ -60,7 +60,11 @@ public class NoteSpawner : MonoBehaviour
         else if (note.type == "hold")
         {
             GameObject holdNote = Instantiate(holdNotePrefab, spawnPos.position, Quaternion.identity);
-            holdNote.GetComponent<HoldNote>().SetNoteLength(note.duration);
+            HoldNote holdNoteScript = holdNote.GetComponent<HoldNote>();
+            if (holdNoteScript != null)
+            {
+                holdNoteScript.SetNoteLength(note.duration);
+            }
         }
     }
 

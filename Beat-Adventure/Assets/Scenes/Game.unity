@@ -589,7 +589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba435f16fe9a3643a677dbb48722463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 839374957}
+  score: 0
+  scoreText: {fileID: 0}
 --- !u!4 &188695974
 Transform:
   m_ObjectHideFlags: 0
@@ -1232,20 +1233,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 844107f89c65a3a41a3377160e48e278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notePrefabs:
-  - {fileID: 737062717161196638, guid: b6512bf937ed47548a9527546ccc66f4, type: 3}
-  - {fileID: 4197698256091416985, guid: 5807443fc3888554d81ea7afa416646d, type: 3}
+  normalNotePrefab: {fileID: 4197698256091416985, guid: 727e240bb8478a34c815faeb653265e5, type: 3}
+  holdNotePrefab: {fileID: 737062717161196638, guid: b6512bf937ed47548a9527546ccc66f4, type: 3}
   spawnPositions:
   - {fileID: 98106260}
   - {fileID: 5688893}
   - {fileID: 842084439}
   - {fileID: 1472554417}
-  noteSpeeds:
-  - 5
-  - 7
-  - 4
-  - 3
-  spawnRate: 3
+  musicSource: {fileID: 0}
 --- !u!4 &843813619
 Transform:
   m_ObjectHideFlags: 0
