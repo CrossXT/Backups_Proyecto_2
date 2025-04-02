@@ -1222,7 +1222,7 @@ MonoBehaviour:
   Start: {fileID: 1181254786}
   Settings: {fileID: 2100485713}
   Credits: {fileID: 62772124}
-  Exit: {fileID: 0}
+  Exit: {fileID: 743350309}
 --- !u!4 &1314219226
 Transform:
   m_ObjectHideFlags: 0
