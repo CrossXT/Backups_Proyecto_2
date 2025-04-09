@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using TMPro; // ✅ Importa TextMeshPro
 
 public class LevelData : MonoBehaviour
 {
-    int currentIndex = 0;
-    public List<LevelInfo> levels; // ✅ Usamos LevelInfo en lugar de LevelData
+    int currentIndex = 0;  // Índice para recorrer los niveles
+    public List<LevelInfo> levels;  // Lista de niveles
 
     [System.Serializable]
     public class LevelInfo
@@ -14,7 +14,7 @@ public class LevelData : MonoBehaviour
         public string nombreCancion;     // Nombre visible del nivel
         public string sceneName;         // Escena que se carga
         public Sprite portada;           // Imagen asociada
-        public AudioClip previewAudio;   // Música de preview
+        public AudioClip previewAudio;   // Música de previsualización
         public string[] dificultades;    // Dificultades disponibles
     }
 
@@ -23,23 +23,28 @@ public class LevelData : MonoBehaviour
     public GameObject panelDificultad;
 
     bool panelDificultadActivo = false;
-    string dificultadActual = "Normal"; // Puedes cambiarlo según lo que seleccione el usuario
+    string dificultadActual = "Normal";  // Dificultad inicial
+
+    public TMP_Text tituloTexto;  // ✅ TextMeshPro en lugar de UnityEngine.UI.Text
+    public UnityEngine.UI.Image imagenPortada;
+    public AudioSource audioSource;
 
     void Start()
     {
-        // Cargar preferencias
         level = PlayerPrefs.GetString("SelectedLevel");
         dificultad = PlayerPrefs.GetInt("SelectedDifficulty");
 
-        // Desactiva panel de dificultad al inicio
         if (panelDificultad != null)
             panelDificultad.SetActive(false);
+
+        UpdateLevelDisplay();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
             MoveToNextLevel();
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
             MoveToPreviousLevel();
 
@@ -68,25 +73,23 @@ public class LevelData : MonoBehaviour
     void UpdateLevelDisplay()
     {
         LevelInfo level = levels[currentIndex];
-        Debug.Log("Nivel seleccionado: " + level.nombreCancion);
+        tituloTexto.text = level.nombreCancion; 
+        imagenPortada.sprite = level.portada;
+        audioSource.clip = level.previewAudio;
+        audioSource.Play();
 
-        // Aquí iría la actualización de UI: título, portada, etc.
-        // Ej:
-        // tituloTexto.text = level.nombreCancion;
-        // imagenPortada.sprite = level.portada;
+        Debug.Log("Nivel seleccionado: " + level.nombreCancion);
     }
 
     void HandleEnterKey()
     {
         if (!panelDificultadActivo)
         {
-            // Activar el panel de dificultad
             panelDificultad.SetActive(true);
             panelDificultadActivo = true;
         }
         else
         {
-            // Cargar nivel con dificultad
             string nombreEscena = levels[currentIndex].sceneName;
             PlayerPrefs.SetString("SelectedLevel", nombreEscena);
             PlayerPrefs.SetString("SelectedDifficulty", dificultadActual);

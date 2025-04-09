@@ -18,9 +18,13 @@ public class Gamelogic : MonoBehaviour
     {
         
     }
-    public void LoadGame()
+    public void LoadLevelSelection()
     {
         SceneManager.LoadScene("LevelSelection");
+    }
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("Game");
     }
     public void LoadSettings()
     {
