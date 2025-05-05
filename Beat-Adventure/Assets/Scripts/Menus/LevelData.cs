@@ -1,39 +1,36 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using TMPro; // ✅ Importa TextMeshPro
+using TMPro;
+
 
 public class LevelData : MonoBehaviour
 {
-    int currentIndex = 0;  // Índice para recorrer los niveles
-    public List<LevelInfo> levels;  // Lista de niveles
+    int currentIndex = 0;
+    int currentDificultadIndex = 0;
+
+    public List<LevelInfo> levels;
 
     [System.Serializable]
     public class LevelInfo
     {
-        public string nombreCancion;     // Nombre visible del nivel
-        public string sceneName;         // Escena que se carga
-        public Sprite portada;           // Imagen asociada
-        public AudioClip previewAudio;   // Música de previsualización
-        public string[] dificultades;    // Dificultades disponibles
+        public string nombreCancion;
+        public string sceneName;
+        public Sprite portada;
+        public AudioClip previewAudio;
+        public string[] dificultades;
     }
 
-    string level;
-    int dificultad;
     public GameObject panelDificultad;
-
-    bool panelDificultadActivo = false;
-    string dificultadActual = "Normal";  // Dificultad inicial
-
-    public TMP_Text tituloTexto;  // ✅ TextMeshPro en lugar de UnityEngine.UI.Text
+    public TMP_Text tituloTexto;
+    public TMP_Text textoDificultad; 
     public UnityEngine.UI.Image imagenPortada;
     public AudioSource audioSource;
 
+    bool panelDificultadActivo = false;
+
     void Start()
     {
-        level = PlayerPrefs.GetString("SelectedLevel");
-        dificultad = PlayerPrefs.GetInt("SelectedDifficulty");
-
         if (panelDificultad != null)
             panelDificultad.SetActive(false);
 
@@ -42,59 +39,74 @@ public class LevelData : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            MoveToNextLevel();
+        if (!panelDificultadActivo)
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                currentIndex = (currentIndex + 1) % levels.Count;
+                UpdateLevelDisplay();
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                currentIndex = (currentIndex - 1 + levels.Count) % levels.Count;
+                UpdateLevelDisplay();
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                panelDificultadActivo = true;
+                panelDificultad.SetActive(true);
+                currentDificultadIndex = 0; // Reseteamos dificultad
+                UpdateDificultadDisplay();
+            }
+        }
+        else // Si está activo el panel de dificultad
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                currentDificultadIndex = (currentDificultadIndex + 1) % levels[currentIndex].dificultades.Length;
+                UpdateDificultadDisplay();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                currentDificultadIndex = (currentDificultadIndex - 1 + levels[currentIndex].dificultades.Length) % levels[currentIndex].dificultades.Length;
+                UpdateDificultadDisplay();
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                string nombreEscena = levels[currentIndex].sceneName;
+                string dificultadSeleccionada = levels[currentIndex].dificultades[currentDificultadIndex];
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            MoveToPreviousLevel();
+                PlayerPrefs.SetString("SelectedLevel", nombreEscena);
+                PlayerPrefs.SetString("SelectedDifficulty", dificultadSeleccionada);
 
-        if (Input.GetKeyDown(KeyCode.Return))
-            HandleEnterKey();
-    }
+                Debug.Log("Cargando escena: " + nombreEscena + " con dificultad: " + dificultadSeleccionada);
 
-    void MoveToNextLevel()
-    {
-        currentIndex++;
-        if (currentIndex >= levels.Count)
-            currentIndex = 0;
+                PlayerPrefs.SetString("SceneToLoad", nombreEscena);
+                SceneManager.LoadScene("Loading");
 
-        UpdateLevelDisplay();
-    }
-
-    void MoveToPreviousLevel()
-    {
-        currentIndex--;
-        if (currentIndex < 0)
-            currentIndex = levels.Count - 1;
-
-        UpdateLevelDisplay();
+            }
+        }
     }
 
     void UpdateLevelDisplay()
     {
-        LevelInfo level = levels[currentIndex];
-        tituloTexto.text = level.nombreCancion; 
-        imagenPortada.sprite = level.portada;
-        audioSource.clip = level.previewAudio;
-        audioSource.Play();
+        LevelInfo nivel = levels[currentIndex];
+        tituloTexto.text = nivel.nombreCancion;
+        imagenPortada.sprite = nivel.portada;
 
-        Debug.Log("Nivel seleccionado: " + level.nombreCancion);
+        if (audioSource != null && nivel.previewAudio != null)
+        {
+            audioSource.clip = nivel.previewAudio;
+            audioSource.Play();
+        }
+
+        Debug.Log("Nivel seleccionado: " + nivel.nombreCancion);
     }
 
-    void HandleEnterKey()
+    void UpdateDificultadDisplay()
     {
-        if (!panelDificultadActivo)
-        {
-            panelDificultad.SetActive(true);
-            panelDificultadActivo = true;
-        }
-        else
-        {
-            string nombreEscena = levels[currentIndex].sceneName;
-            PlayerPrefs.SetString("SelectedLevel", nombreEscena);
-            PlayerPrefs.SetString("SelectedDifficulty", dificultadActual);
-            Debug.Log("Cargando escena: " + nombreEscena + " con dificultad: " + dificultadActual);
-            SceneManager.LoadScene(nombreEscena);
-        }
+        string dif = levels[currentIndex].dificultades[currentDificultadIndex];
+        textoDificultad.text = "Dificultad: " + dif;
+        Debug.Log("Dificultad seleccionada: " + dif);
     }
 }
