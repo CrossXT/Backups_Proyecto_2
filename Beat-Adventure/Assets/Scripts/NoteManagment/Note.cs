@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Note : MonoBehaviour
@@ -10,6 +11,10 @@ public class Note : MonoBehaviour
     public int scoreValue = 100;
 
     private bool isInsideTarget = false;
+
+    public AudioClip hitSoundClip;
+
+
 
     void Start()
     {
@@ -58,17 +63,24 @@ public class Note : MonoBehaviour
             isHit = true;
             Debug.Log("Nota acertada: " + assignedKey);
 
-            // El puntaje ahora es manejado por el ScoreManager
             ScoreManager scoreManager = UnityEngine.Object.FindFirstObjectByType<ScoreManager>();
 
             if (scoreManager != null)
             {
-                scoreManager.AddScore(scoreValue); // Suma puntos al puntaje
+                scoreManager.AddScore(scoreValue);
             }
 
-            Destroy(gameObject); // Destruye la nota después de acertarla
+            // Reproducir sonido si existe
+            if (hitSoundClip != null)
+            {
+                AudioSource.PlayClipAtPoint(hitSoundClip, Camera.main.transform.position, 0.5f);
+            }
+
+
+            Destroy(gameObject); 
         }
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

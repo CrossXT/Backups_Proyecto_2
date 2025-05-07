@@ -7,6 +7,9 @@ public class HoldNote : MonoBehaviour
     public float speed = 5f;    // Velocidad de caída
     public string assignedKey;  // Tecla asignada a esta nota
 
+    public AudioClip holdHitSoundClip;
+
+
     private Transform body;
     private Transform tail;
 
@@ -89,12 +92,18 @@ public class HoldNote : MonoBehaviour
 
     public void Hit()
     {
-        // Aquí puedes agregar lo que sucede cuando la nota se mantiene correctamente
         Debug.Log("Nota mantenida correctamente: " + assignedKey);
-        Destroy(gameObject); // Destruir la nota después de que se haya mantenido
+
+        if (holdHitSoundClip != null)
+        {
+            AudioSource.PlayClipAtPoint(holdHitSoundClip, Camera.main.transform.position, 0.5f);
+        }
+
+        Destroy(gameObject);
     }
 
-    // ✅ MÉTODO QUE FALTABA: SetNoteLength()
+
+
     public void SetNoteLength(float newDuration)
     {
         duration = newDuration;

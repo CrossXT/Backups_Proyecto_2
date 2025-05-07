@@ -1,20 +1,44 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class AudioController : MonoBehaviour
 {
-    public AudioSource audioSource;  // Fuente de audio para la música
-    public AudioClip songClip;  // La canción que se reproducirá
+    public AudioSource audioSource;
+    public AudioClip songClip;
+    private bool hasEnded = false;
 
     void Start()
     {
         audioSource.clip = songClip;
-        audioSource.Play();  // Reproduce la canción desde el principio
+        audioSource.Play();
     }
 
     void Update()
     {
-        // Puedes usar la posición actual de la canción para generar las notas en momentos específicos
-        // Por ejemplo, puedes hacer que las notas aparezcan en función de la posición de la canción:
-        // float currentTime = audioSource.time;
+        if (!audioSource.isPlaying && !hasEnded && audioSource.time > 0f)
+        {
+            hasEnded = true;
+            StartCoroutine(FadeOutAndLoad());
+        }
+    }
+
+    IEnumerator FadeOutAndLoad()
+    {
+        
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0.01f)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / 1.5f; // Duración: 1.5 segundos
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+
+        
+        DestinyScene.nombreEscena = "LevelSelector"; // Define a dónde irá la pantalla de carga
+        SceneManager.LoadScene("LoadingScene"); // Carga la escena de carga (ya existente)
     }
 }

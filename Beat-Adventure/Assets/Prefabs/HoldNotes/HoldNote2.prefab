@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7681997085278785820}
   - component: {fileID: 4422133790073174632}
   m_Layer: 0
-  m_Name: HoldNote
+  m_Name: HoldNote2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+  m_Color: {r: 0.9622642, g: 0.40611875, b: 0.39489147, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -253,7 +253,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.20754719, g: 0.2046102, b: 0.2046102, a: 1}
+  m_Color: {r: 0.9528302, g: 0.3865427, b: 0.29214135, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

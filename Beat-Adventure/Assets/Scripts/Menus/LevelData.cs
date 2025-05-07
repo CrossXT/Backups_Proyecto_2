@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using TMPro;
 
-
 public class LevelData : MonoBehaviour
 {
     int currentIndex = 0;
@@ -23,7 +22,7 @@ public class LevelData : MonoBehaviour
 
     public GameObject panelDificultad;
     public TMP_Text tituloTexto;
-    public TMP_Text textoDificultad; 
+    public TMP_Text textoDificultad;
     public UnityEngine.UI.Image imagenPortada;
     public AudioSource audioSource;
 
@@ -41,6 +40,7 @@ public class LevelData : MonoBehaviour
     {
         if (!panelDificultadActivo)
         {
+            // Navegación entre niveles con flechas arriba/abajo
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 currentIndex = (currentIndex + 1) % levels.Count;
@@ -53,14 +53,16 @@ public class LevelData : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
+                // Activar panel de dificultad
                 panelDificultadActivo = true;
                 panelDificultad.SetActive(true);
-                currentDificultadIndex = 0; // Reseteamos dificultad
+                currentDificultadIndex = 0;
                 UpdateDificultadDisplay();
             }
         }
-        else // Si está activo el panel de dificultad
+        else
         {
+            // Navegación entre dificultades con flechas izquierda/derecha
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 currentDificultadIndex = (currentDificultadIndex + 1) % levels[currentIndex].dificultades.Length;
@@ -73,23 +75,24 @@ public class LevelData : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
+                // Guardar selección y cargar escena de carga
                 string nombreEscena = levels[currentIndex].sceneName;
                 string dificultadSeleccionada = levels[currentIndex].dificultades[currentDificultadIndex];
 
                 PlayerPrefs.SetString("SelectedLevel", nombreEscena);
                 PlayerPrefs.SetString("SelectedDifficulty", dificultadSeleccionada);
+                PlayerPrefs.SetString("SceneToLoad", nombreEscena);
 
                 Debug.Log("Cargando escena: " + nombreEscena + " con dificultad: " + dificultadSeleccionada);
-
-                PlayerPrefs.SetString("SceneToLoad", nombreEscena);
                 SceneManager.LoadScene("Loading");
-
             }
         }
     }
 
     void UpdateLevelDisplay()
     {
+        if (levels.Count == 0) return;
+
         LevelInfo nivel = levels[currentIndex];
         tituloTexto.text = nivel.nombreCancion;
         imagenPortada.sprite = nivel.portada;
@@ -105,6 +108,8 @@ public class LevelData : MonoBehaviour
 
     void UpdateDificultadDisplay()
     {
+        if (levels[currentIndex].dificultades.Length == 0) return;
+
         string dif = levels[currentIndex].dificultades[currentDificultadIndex];
         textoDificultad.text = "Dificultad: " + dif;
         Debug.Log("Dificultad seleccionada: " + dif);

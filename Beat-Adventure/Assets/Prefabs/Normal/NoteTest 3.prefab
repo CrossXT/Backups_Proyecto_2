@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0.11850643, b: 1, a: 1}
+  m_Color: {r: 0.49127805, g: 0.540029, b: 0.9056604, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   isHit: 0
   assignedKey: j
   scoreValue: 100
+  hitSoundClip: {fileID: 0}
 --- !u!114 &2574028217564920693
 MonoBehaviour:
   m_ObjectHideFlags: 0

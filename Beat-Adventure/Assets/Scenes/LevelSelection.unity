@@ -471,7 +471,9 @@ MonoBehaviour:
     portada: {fileID: 0}
     previewAudio: {fileID: 0}
     dificultades:
-    - Test
+    - Facil
+    - Normal
+    - Dificil
   panelDificultad: {fileID: 159543444}
   tituloTexto: {fileID: 1960659010}
   textoDificultad: {fileID: 172295335}

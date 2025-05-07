@@ -6,8 +6,9 @@ using Newtonsoft.Json; // Asegúrate de tener Newtonsoft.Json en tu proyecto
 
 public class NoteSpawner : MonoBehaviour
 {
-    public GameObject normalNotePrefab;
-    public GameObject holdNotePrefab;
+    public GameObject[] normalNotePrefabs; 
+    public GameObject[] holdNotePrefabs;   
+
     public Transform[] spawnPositions; // Posiciones donde aparecerán las notas
     public AudioSource musicSource;
 
@@ -51,15 +52,17 @@ public class NoteSpawner : MonoBehaviour
     void SpawnNote(NoteData note)
     {
         Transform spawnPos = GetSpawnPosition(note.key);
-        if (spawnPos == null) return;
+        int laneIndex = GetLaneIndex(note.key);
 
-        if (note.type == "normal")
+        if (spawnPos == null || laneIndex == -1) return;
+
+        if (note.type == "normal" && laneIndex < normalNotePrefabs.Length)
         {
-            Instantiate(normalNotePrefab, spawnPos.position, Quaternion.identity);
+            Instantiate(normalNotePrefabs[laneIndex], spawnPos.position, Quaternion.identity);
         }
-        else if (note.type == "hold")
+        else if (note.type == "hold" && laneIndex < holdNotePrefabs.Length)
         {
-            GameObject holdNote = Instantiate(holdNotePrefab, spawnPos.position, Quaternion.identity);
+            GameObject holdNote = Instantiate(holdNotePrefabs[laneIndex], spawnPos.position, Quaternion.identity);
             HoldNote holdNoteScript = holdNote.GetComponent<HoldNote>();
             if (holdNoteScript != null)
             {
@@ -67,6 +70,7 @@ public class NoteSpawner : MonoBehaviour
             }
         }
     }
+
 
     Transform GetSpawnPosition(string key)
     {
@@ -79,6 +83,19 @@ public class NoteSpawner : MonoBehaviour
             default: return null;
         }
     }
+
+    int GetLaneIndex(string key)
+    {
+        switch (key)
+        {
+            case "d": return 0;
+            case "f": return 1;
+            case "j": return 2;
+            case "k": return 3;
+            default: return -1;
+        }
+    }
+
 }
 
 [System.Serializable]
