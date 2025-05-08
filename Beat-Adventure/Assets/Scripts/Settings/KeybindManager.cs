@@ -1,68 +1,50 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
+using TMPro;
 
-public class KeybindManager : MonoBehaviour
+public class KeyBindingManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class KeyBinding
-    {
-        public string actionName; // Nombre de la acción (Ej: "Jump")
-        public string defaultKey; // Tecla por defecto (Ej: "Space")
-        public Text keyText;      // Texto en la UI que muestra la tecla actual
-        public Button changeKeyButton; // Botón para cambiar la tecla
-    }
+    public TMP_Text[] keyLabels; // Asigna textos UI para mostrar la tecla actual
+    private string[] actionKeys = new string[] { "key1", "key2", "key3", "key4" }; // Nombres internos
 
-    public List<KeyBinding> keyBindings; // Lista de acciones configurables
-    private string currentKeyToChange = null; // Para saber qué tecla se está cambiando
+    private int waitingForKeyIndex = -1;
 
     void Start()
     {
-        LoadKeyBindings();
-
-        // Asignar eventos a los botones
-        foreach (var binding in keyBindings)
+        for (int i = 0; i < actionKeys.Length; i++)
         {
-            binding.changeKeyButton.onClick.AddListener(() => StartKeyChange(binding));
+            string savedKey = PlayerPrefs.GetString(actionKeys[i], GetDefaultKey(i));
+            keyLabels[i].text = savedKey.ToUpper();
         }
     }
 
-    void Update()
+    public void StartRebind(int index)
     {
-        if (currentKeyToChange != null && Input.anyKeyDown)
+        waitingForKeyIndex = index;
+        keyLabels[index].text = "Presiona una tecla...";
+    }
+
+    void OnGUI()
+    {
+        if (waitingForKeyIndex != -1 && Event.current.type == EventType.KeyDown)
         {
-            foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
-            {
-                if (Input.GetKeyDown(key))
-                {
-                    SetKeyBinding(currentKeyToChange, key.ToString());
-                    break;
-                }
-            }
+            string newKey = Event.current.keyCode.ToString().ToLower();
+            PlayerPrefs.SetString(actionKeys[waitingForKeyIndex], newKey);
+            keyLabels[waitingForKeyIndex].text = newKey.ToUpper();
+            waitingForKeyIndex = -1;
         }
     }
 
-    void StartKeyChange(KeyBinding binding)
+    private string GetDefaultKey(int index)
     {
-        currentKeyToChange = binding.actionName;
-        binding.keyText.text = "Presiona una tecla...";
-    }
-
-    void SetKeyBinding(string action, string newKey)
-    {
-        PlayerPrefs.SetString(action, newKey);
-        PlayerPrefs.Save();
-        currentKeyToChange = null;
-        LoadKeyBindings(); // Refrescar la UI
-    }
-
-    void LoadKeyBindings()
-    {
-        foreach (var binding in keyBindings)
+        return index switch
         {
-            string savedKey = PlayerPrefs.GetString(binding.actionName, binding.defaultKey);
-            binding.keyText.text = savedKey;
-        }
+            0 => "d",
+            1 => "f",
+            2 => "j",
+            3 => "k",
+            _ => "none"
+        };
     }
+
 }
