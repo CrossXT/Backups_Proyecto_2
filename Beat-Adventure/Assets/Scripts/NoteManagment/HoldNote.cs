@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Specialized;
+using UnityEngine;
 using UnityEngine.InputSystem; // Necesario para la entrada del teclado
 
 public class HoldNote : MonoBehaviour
@@ -10,6 +11,7 @@ public class HoldNote : MonoBehaviour
     public AudioClip holdHitSoundClip;
 
 
+    private Transform head;
     private Transform body;
     private Transform tail;
 
@@ -19,6 +21,7 @@ public class HoldNote : MonoBehaviour
 
     void Start()
     {
+        head = transform.Find("Head"); // Encuentra el cuerpo
         body = transform.Find("Body"); // Encuentra el cuerpo
         tail = transform.Find("Tail"); // Encuentra la cola
 
@@ -125,13 +128,18 @@ public class HoldNote : MonoBehaviour
                 tail.localPosition = new Vector3(0, -newBodyHeight / 2f, 0);
             }
 
-            // Ajustamos el BoxCollider2D del cuerpo si existe
-            BoxCollider2D bodyCollider = body.GetComponent<BoxCollider2D>();
-            if (bodyCollider != null)
-            {
-                bodyCollider.size = new Vector2(bodyCollider.size.x, newBodyHeight);
-                bodyCollider.offset = new Vector2(bodyCollider.offset.x, -newBodyHeight / 2f);
-            }
+            float bodyLength = Mathf.Abs(head.transform.position.y - tail.transform.position.y);
+
+            body.transform.position = (head.transform.position + tail.transform.position) / 2f;
+            body.transform.localScale = new Vector3(1f, bodyLength, 1f);
+
+            //// Ajustamos el BoxCollider2D del cuerpo si existe
+            //BoxCollider2D bodyCollider = body.GetComponent<BoxCollider2D>();
+            //if (bodyCollider != null)
+            //{
+            //    bodyCollider.size = new Vector2(bodyCollider.size.x, newBodyHeight);
+            //    bodyCollider.offset = new Vector2(bodyCollider.offset.x, -newBodyHeight / 2f);
+            //}
         }
     }
 }
