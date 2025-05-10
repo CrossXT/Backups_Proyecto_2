@@ -1,0 +1,26 @@
+[
+  {
+    "time": 1.5, //el tiempo que spawnea
+    "key": "d", //tecla asignada
+    "type": "normal",  //el tipo de tecla (normal o mantenida)
+    "duration": 0 //duracion en caso de notas mantenidas
+  },
+  {
+    "time": 2.0,
+    "key": "f",
+    "type": "hold",
+    "duration": 1.5
+  },
+  {
+    "time": 3.0,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 4.5,
+    "key": "k",
+    "type": "hold",
+    "duration": 2.0
+  }
+]
