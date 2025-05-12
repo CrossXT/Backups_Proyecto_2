@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf95bbc123a116e428aa342d0fda1070
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 14837
+  packageName: High Score
+  packageVersion: 1.0
+  assetPath: Assets/HighScore/SpriteSheets/HighScore3_0.controller
+  uploadId: 2908

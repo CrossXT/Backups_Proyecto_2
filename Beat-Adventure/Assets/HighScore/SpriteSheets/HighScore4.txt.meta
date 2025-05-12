@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c57e890afb1b9b1468a9ea94c1ddff1b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 14837
+  packageName: High Score
+  packageVersion: 1.0
+  assetPath: Assets/HighScore/SpriteSheets/HighScore4.txt
+  uploadId: 2908

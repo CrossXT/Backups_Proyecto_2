@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7d551bf0b1ffee64d89091ffa2f54460
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 14837
+  packageName: High Score
+  packageVersion: 1.0
+  assetPath: Assets/HighScore/HighScore.unity
+  uploadId: 2908

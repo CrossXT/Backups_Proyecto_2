@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f3f157eaf521a24fafa3ceef259b9af
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 14837
+  packageName: High Score
+  packageVersion: 1.0
+  assetPath: Assets/HighScore/SpriteSheets/HighScore2.anim
+  uploadId: 2908

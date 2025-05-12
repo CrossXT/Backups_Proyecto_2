@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f764889dbe5057f4c9af9a6e4898b8da
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 14837
+  packageName: High Score
+  packageVersion: 1.0
+  assetPath: Assets/HighScore/Prefabs/HighScore2.prefab
+  uploadId: 2908
