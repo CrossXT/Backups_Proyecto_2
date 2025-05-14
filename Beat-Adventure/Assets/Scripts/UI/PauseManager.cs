@@ -1,37 +1,33 @@
 using UnityEngine;
-using UnityEngine.UI; // Para usar los UI elements
-using UnityEngine.SceneManagement; // Para cambiar de escena
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    public GameObject pausePanel; // Panel que se activará durante la pausa
-    public Button restartButton;  // Botón para reiniciar el nivel
-    public Button levelSelectButton; // Botón para volver al selector de nivel
+    public GameObject pausePanel;
+    public Button restartButton;
+    public Button levelSelectButton;
 
-    private bool isPaused = false;  // Controla si el juego está pausado
+    private bool isPaused = false;
 
     void Start()
     {
-        // Inicializa los botones
         restartButton.onClick.AddListener(RestartLevel);
         levelSelectButton.onClick.AddListener(GoToLevelSelector);
-
-        // Asegúrate de que el panel de pausa esté inicialmente desactivado
         pausePanel.SetActive(false);
     }
 
     void Update()
     {
-        // Detectar si se presiona "ESC" para pausar o reanudar
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
-                ResumeGame(); // Reanudar el juego
+                ResumeGame();
             }
             else
             {
-                PauseGame(); // Pausar el juego
+                PauseGame();
             }
         }
     }
@@ -39,26 +35,35 @@ public class PauseManager : MonoBehaviour
     void PauseGame()
     {
         isPaused = true;
-        pausePanel.SetActive(true); // Muestra el panel de pausa
-        Time.timeScale = 0f; // Detiene el tiempo del juego
+        pausePanel.SetActive(true);
+
+        // Pausa el juego (afecta a las físicas, movimientos, animaciones con deltaTime)
+        Time.timeScale = 0f;
+
+        // Asegura que el sistema UI esté activo
+        Canvas canvas = pausePanel.GetComponentInParent<Canvas>();
+        if (canvas != null)
+        {
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        }
     }
 
     void ResumeGame()
     {
         isPaused = false;
-        pausePanel.SetActive(false); // Oculta el panel de pausa
-        Time.timeScale = 1f; // Reanuda el tiempo del juego
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     void RestartLevel()
     {
-        Time.timeScale = 1f; // Asegúrate de reanudar el tiempo
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena actual
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void GoToLevelSelector()
     {
-        Time.timeScale = 1f; // Asegúrate de reanudar el tiempo
-        SceneManager.LoadScene("LevelSelector"); // Carga la escena del selector de nivel (ajusta el nombre de la escena)
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelector");
     }
 }

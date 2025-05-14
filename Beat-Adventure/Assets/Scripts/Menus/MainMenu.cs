@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public Button Start;
+    public Button HowToPlay;
     public Button Settings;
     public Button Credits;
     public Button Exit;
@@ -20,8 +21,9 @@ public class MainMenu : MonoBehaviour
     private void OnEnable()
     {
         Start.onClick.AddListener(OnButtonStartClick);
+        HowToPlay.onClick.AddListener(OnButtonHowToPlayClick);
         Settings.onClick.AddListener(OnButtonSettingsClick);
-        Credits.onClick.AddListener(OnButtonSettingsClick);
+        Credits.onClick.AddListener(OnButtonCreditsClick);
         Exit.onClick.AddListener(OnButtonExitClick);
 
     }
@@ -29,8 +31,9 @@ public class MainMenu : MonoBehaviour
     private void OnDisable()
     {
         Start.onClick.RemoveListener(OnButtonStartClick);
-        Settings.onClick.RemoveListener(OnButtonStartClick);
-        Credits.onClick.RemoveListener(OnButtonStartClick);
+        HowToPlay.onClick.RemoveListener(OnButtonHowToPlayClick);
+        Settings.onClick.RemoveListener(OnButtonSettingsClick);
+        Credits.onClick.RemoveListener(OnButtonCreditsClick);
         Exit.onClick.RemoveListener(OnButtonExitClick);
     }
 
@@ -40,6 +43,11 @@ public class MainMenu : MonoBehaviour
         
     }
     void OnButtonStartClick()
+    {
+        SceneManager.LoadScene("LevelSelection");
+    }
+
+    void OnButtonHowToPlayClick()
     {
         SceneManager.LoadScene("LevelSelection");
     }

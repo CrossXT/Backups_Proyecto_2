@@ -1,26 +1,656 @@
 [
   {
-    "time": 1.5, //el tiempo que spawnea
-    "key": "d", //tecla asignada
-    "type": "normal",  //el tipo de tecla (normal o mantenida)
-    "duration": 0 //duracion en caso de notas mantenidas
+    "time": 0.00,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
   },
   {
-    "time": 2.0,
+    "time": 0.55,
     "key": "f",
-    "type": "hold",
-    "duration": 1.5
+    "type": "normal",
+    "duration": 0
   },
   {
-    "time": 3.0,
+    "time": 1.10,
     "key": "j",
     "type": "normal",
     "duration": 0
   },
   {
-    "time": 4.5,
+    "time": 1.65,
     "key": "k",
-    "type": "hold",
-    "duration": 2.0
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 2.20,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 2.75,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 3.30,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 3.85,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 4.40,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 4.95,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 5.50,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 6.05,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 6.60,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 7.15,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 7.70,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 8.25,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 8.80,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 9.35,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 9.90,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 10.45,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 11.00,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 11.55,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 12.10,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 12.65,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 13.20,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 13.75,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 14.30,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 14.85,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 15.40,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 15.95,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 16.50,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 17.05,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 17.60,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 18.15,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 18.70,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 19.25,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 19.80,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 20.35,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 20.90,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 21.45,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 22.00,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 22.55,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 23.10,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 23.65,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 24.20,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 24.75,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 25.30,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 25.85,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 26.40,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 26.95,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 27.50,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 28.05,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 28.60,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 29.15,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 29.70,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 30.25,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 30.80,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 31.35,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 31.90,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 32.45,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 33.00,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 33.55,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 34.10,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 34.65,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 35.20,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 35.75,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 36.30,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 36.85,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 37.40,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 37.95,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 38.50,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 39.05,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 39.60,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 40.15,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 40.70,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 41.25,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 41.80,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 42.35,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 42.90,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 43.45,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 44.00,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 44.55,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 45.10,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 45.65,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 46.20,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 46.75,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 47.30,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 47.85,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 48.40,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 48.95,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 49.50,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 50.05,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 50.60,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 51.15,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 51.70,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 52.25,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 52.80,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 53.35,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 53.90,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 54.45,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 55.00,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 55.55,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 56.10,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 56.65,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 57.20,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 57.75,
+    "key": "k",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 58.30,
+    "key": "j",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 58.85,
+    "key": "f",
+    "type": "normal",
+    "duration": 0
+  },
+  {
+    "time": 59.40,
+    "key": "d",
+    "type": "normal",
+    "duration": 0
   }
 ]

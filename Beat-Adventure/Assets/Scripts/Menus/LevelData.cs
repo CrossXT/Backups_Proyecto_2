@@ -95,7 +95,7 @@ public class LevelData : MonoBehaviour
 
         LevelInfo nivel = levels[currentIndex];
         tituloTexto.text = nivel.nombreCancion;
-        imagenPortada.sprite = nivel.portada;
+
 
         if (audioSource != null && nivel.previewAudio != null)
         {

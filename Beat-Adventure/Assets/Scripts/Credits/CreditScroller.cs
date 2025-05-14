@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 
-
 public class CreditScroll : MonoBehaviour
 {
     public RectTransform creditText;
@@ -12,16 +11,23 @@ public class CreditScroll : MonoBehaviour
     public Image fadeOverlay;
     public float fadeDuration = 2f;
     public string mainMenuSceneName = "Menu";
+    public AudioSource musicSource;
 
     private bool fadeStarted = false;
 
+    void Start()
+    {
+        if (musicSource != null && !musicSource.isPlaying)
+        {
+            musicSource.Play();
+        }
+    }
+
     void Update()
     {
-        // Mueve el texto hacia arriba
         creditText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
 
-        // Cuando el texto sale completamente de la pantalla, empieza el fade
-        if (!fadeStarted && creditText.anchoredPosition.y >= 1200f) // ajusta según el contenido
+        if (!fadeStarted && creditText.anchoredPosition.y >= 1200f)
         {
             StartCoroutine(FadeAndReturnToMenu());
             fadeStarted = true;
