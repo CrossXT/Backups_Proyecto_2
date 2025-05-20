@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour
 
     void OnButtonHowToPlayClick()
     {
-        SceneManager.LoadScene("LevelSelection");
+        SceneManager.LoadScene("HowToPlay");
     }
     void OnButtonSettingsClick()
     {

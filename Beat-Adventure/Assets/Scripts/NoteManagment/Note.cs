@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 
 public class Note : MonoBehaviour
 {
+
     public bool isHit = false;
     private float hitPositionY = -4f;
+
 
     public string assignedKey;
     public int scoreValue = 100;
@@ -13,6 +15,8 @@ public class Note : MonoBehaviour
     private bool isInsideTarget = false;
 
     public AudioClip hitSoundClip;
+    public GameObject hitParticlesPrefab;
+
 
 
 
@@ -63,8 +67,8 @@ public class Note : MonoBehaviour
             isHit = true;
             Debug.Log("Nota acertada: " + assignedKey);
 
+            // Añadir puntuación
             ScoreManager scoreManager = UnityEngine.Object.FindFirstObjectByType<ScoreManager>();
-
             if (scoreManager != null)
             {
                 scoreManager.AddScore(scoreValue);
@@ -76,10 +80,16 @@ public class Note : MonoBehaviour
                 AudioSource.PlayClipAtPoint(hitSoundClip, Camera.main.transform.position, 0.5f);
             }
 
+            // Instanciar partículas
+            if (hitParticlesPrefab != null)
+            {
+                Instantiate(hitParticlesPrefab, transform.position, Quaternion.identity);
+            }
 
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
