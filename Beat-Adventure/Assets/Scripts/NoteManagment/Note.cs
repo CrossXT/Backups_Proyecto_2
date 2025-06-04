@@ -33,6 +33,17 @@ public class Note : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //combo reset
+        if (ComboManager.Instance != null)
+        {
+            ComboManager.Instance.ResetCombo();
+        }
+        else
+        {
+            Debug.LogWarning("ComboManager.Instance es null al intentar reiniciar el combo.");
+        }
+
+
         if (isInsideTarget && TeclaPresionada())
         {
             Hit();
@@ -67,24 +78,36 @@ public class Note : MonoBehaviour
             isHit = true;
             Debug.Log("Nota acertada: " + assignedKey);
 
-            // Añadir puntuación
+            //puntuación
             ScoreManager scoreManager = UnityEngine.Object.FindFirstObjectByType<ScoreManager>();
             if (scoreManager != null)
             {
                 scoreManager.AddScore(scoreValue);
             }
 
-            // Reproducir sonido si existe
+            // sonido 
             if (hitSoundClip != null)
             {
                 AudioSource.PlayClipAtPoint(hitSoundClip, Camera.main.transform.position, 0.5f);
             }
 
-            // Instanciar partículas
+            // partículas
             if (hitParticlesPrefab != null)
             {
                 Instantiate(hitParticlesPrefab, transform.position, Quaternion.identity);
             }
+
+            //combo 
+            if (ComboManager.Instance != null)
+            {
+                ComboManager.Instance.IncreaseCombo();
+            }
+            else
+            {
+                Debug.LogWarning("ComboManager.Instance es null");
+            }
+
+
 
             Destroy(gameObject);
         }
