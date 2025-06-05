@@ -107,6 +107,7 @@ MonoBehaviour:
   assignedKey: k
   scoreValue: 100
   hitSoundClip: {fileID: 0}
+  hitParticlesPrefab: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
 --- !u!114 &8155330502986192574
 MonoBehaviour:
   m_ObjectHideFlags: 0

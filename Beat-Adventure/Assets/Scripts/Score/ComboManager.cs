@@ -18,15 +18,17 @@ public class ComboManager : MonoBehaviour
 
     void Start()
     {
-        comboText.text = "Combo: 0";
+        comboText.text = $"Combo: {currentCombo}";
     }
 
 
     public void IncreaseCombo()
     {
         currentCombo++;
+        Debug.Log("Combo actualizado: " + currentCombo);
         UpdateComboDisplay();
     }
+
 
     public void ResetCombo()
     {
@@ -38,12 +40,12 @@ public class ComboManager : MonoBehaviour
     {
         if (comboText != null)
         {
-            comboText.text = "Combo: " + currentCombo;
-
+            comboText.text = $"Combo: {currentCombo}";
         }
         else
         {
             Debug.LogWarning("comboText no asignado en ComboManager");
         }
     }
+
 }

@@ -30,19 +30,14 @@ public class Note : MonoBehaviour
         if (transform.position.y < hitPositionY && !isHit)
         {
             Debug.Log("Nota fallada: " + assignedKey);
+
+            if (ComboManager.Instance != null)
+            {
+                ComboManager.Instance.ResetCombo(); 
+            }
+
             Destroy(gameObject);
         }
-
-        //combo reset
-        if (ComboManager.Instance != null)
-        {
-            ComboManager.Instance.ResetCombo();
-        }
-        else
-        {
-            Debug.LogWarning("ComboManager.Instance es null al intentar reiniciar el combo.");
-        }
-
 
         if (isInsideTarget && TeclaPresionada())
         {
@@ -97,15 +92,17 @@ public class Note : MonoBehaviour
                 Instantiate(hitParticlesPrefab, transform.position, Quaternion.identity);
             }
 
-            //combo 
+            // combo
             if (ComboManager.Instance != null)
             {
                 ComboManager.Instance.IncreaseCombo();
             }
             else
             {
-                Debug.LogWarning("ComboManager.Instance es null");
+                Debug.LogWarning("ComboManager.Instance es null.");
             }
+
+
 
 
 
